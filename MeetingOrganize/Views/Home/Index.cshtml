@@ -1,0 +1,93 @@
+﻿@section scripts {
+    @Scripts.Render("~/bundles/app")
+}
+
+<div class="page-header">
+    <h1>MeetingService</h1>
+</div>
+
+<div class="row">
+
+    <div class="col-md-4">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h2 class="panel-title">Meetings</h2>
+            </div>
+            <div class="panel-body">
+                <ul class="list-unstyled" data-bind="foreach: meetings">
+                    <li>
+                        <strong><span data-bind="text: ParticipantName"></span></strong>: <span data-bind="text: Subject"></span>
+                        <small><a href="#" data-bind="click: $parent.getMeetingDetail">Details</a></small>
+                        <small><a href="#" data-bind="click: $parent.deleteMeeting">Delete</a></small>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="alert alert-danger" data-bind="visible: error"><p data-bind="text: error"></p></div>
+    </div>
+    <!-- ko if:detail() -->
+    <div class="col-md-4">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h2 class="panel-title">Detail</h2>
+            </div>
+            <table class="table">
+                <tr><td>Participant</td><td data-bind="text: detail().ParticipantName"></td></tr>
+                <tr><td>Subject</td><td data-bind="text: detail().Subject"></td></tr>
+                <tr><td>Date</td><td data-bind="text: detail().Date"></td></tr>
+                <tr><td>Start Date</td><td data-bind="text: detail().StartTime"></td></tr>
+                <tr><td>Finish Date</td><td data-bind="text: detail().FinishTime"></td></tr>
+            </table>
+        </div>
+    </div>
+
+    <!-- /ko -->
+
+    <div class="col-md-4">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h2 class="panel-title">Add Meeting</h2>
+            </div>
+
+            <div class="panel-body">
+                <form class="form-horizontal" data-bind="submit: addMeeting">
+
+                    <div class="form-group">
+                        <label for="inputParticipant" class="col-sm-2 control-label">Participant</label>
+                        <div class="col-sm-10">
+                            <select data-bind="options:participants, optionsText: 'Name', value: newMeeting.Participant"></select>
+                        </div>
+                    </div>
+
+                    <div class="form-group" data-bind="with: newMeeting">
+                        @* <label for="inputParticipant" class="col-sm-2 control-label">PArticipant</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="inputParticipant" data-bind="value:Participant" />
+                            </div>*@
+
+                        <label for="inputSubject" class="col-sm-2 control-label">Subject</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="inputSubject" data-bind="value:Subject" />
+                        </div>
+
+                        <label for="inputDate" class="col-sm-2 control-label">Date</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="inputDate" data-bind="value:Date" />
+                        </div>
+
+                        <label for="inputStartTime" class="col-sm-2 control-label">StartTime</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="inputStartTime" data-bind="value:StartTime" />
+                        </div>
+
+                        <label for="inputFinishTime" class="col-sm-2 control-label">FinishTime</label>
+                        <div class="col-sm-10">
+                            <input type="text" step="any" class="form-control" id="inputFinishTime" data-bind="value:FinishTime" />
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-default">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
